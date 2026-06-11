@@ -33,8 +33,8 @@ export default function LoginPage() {
         return;
       }
 
-      const { access_token } = await res.json();
-      login(access_token, username);
+      const { access_token, expires_in } = await res.json();
+      login(access_token, username, expires_in);
       navigate('/welcome', { replace: true });
     } catch {
       setError('Could not connect to the server. Please try again.');

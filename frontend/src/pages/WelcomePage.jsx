@@ -6,7 +6,7 @@ import WebGLBackground from '../components/WebGLBackground';
 const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:8000';
 
 export default function WelcomePage() {
-  const { token, username, logout } = useAuth();
+  const { token, username, expiresIn, logout } = useAuth();
   const navigate = useNavigate();
 
   const [userInfo, setUserInfo]   = useState(null);
@@ -107,7 +107,7 @@ export default function WelcomePage() {
             {[
               { label: 'Session Status', value: 'Active', icon: '●', color: '#059669' },
               { label: 'Auth Method',    value: 'JWT Bearer', icon: '🔑', color: '#0F172A' },
-              { label: 'Token Expiry',   value: '5 minutes', icon: '⏱', color: '#64748B' },
+              { label: 'Token Expiry',   value: expiresIn != null ? `${expiresIn}s` : '—', icon: '⏱', color: '#64748B' },
             ].map(({ label, value, icon, color }) => (
               <div key={label} style={styles.statShell}>
                 <div style={styles.statCard}>
