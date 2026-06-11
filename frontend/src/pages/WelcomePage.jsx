@@ -5,6 +5,63 @@ import WebGLBackground from '../components/WebGLBackground';
 
 const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:8000';
 
+const CERTIFICATIONS = [
+  {
+    code: 'AI-900',
+    name: 'Microsoft Azure AI Fundamentals',
+    level: 'Beginner',
+    role: 'AI Engineer · Data Scientist',
+    description: 'Demonstrate foundational knowledge of machine learning and AI concepts and related Microsoft Azure services.',
+    gradient: 'linear-gradient(135deg, #1e3a8a 0%, #1d4ed8 60%, #2563eb 100%)',
+    url: 'https://learn.microsoft.com/en-us/credentials/certifications/azure-ai-fundamentals/',
+  },
+  {
+    code: 'AI-901',
+    name: 'Azure AI Fundamentals (2026 Edition)',
+    level: 'Beginner',
+    role: 'AI Engineer · Developer',
+    description: 'Updated April 2026 — covers Azure AI Foundry, Content Understanding, and next-generation AI solution development.',
+    gradient: 'linear-gradient(135deg, #312e81 0%, #4f46e5 60%, #6366f1 100%)',
+    url: 'https://learn.microsoft.com/en-us/credentials/certifications/exams/ai-901/',
+  },
+  {
+    code: 'AI-102',
+    name: 'Azure AI Engineer Associate',
+    level: 'Intermediate',
+    role: 'AI Engineer',
+    description: 'Design and implement Azure AI solutions using Azure AI services, Azure AI Search, and Azure OpenAI.',
+    gradient: 'linear-gradient(135deg, #1e40af 0%, #3b82f6 60%, #60a5fa 100%)',
+    url: 'https://learn.microsoft.com/en-us/credentials/certifications/azure-ai-engineer/',
+  },
+  {
+    code: 'AZ-104',
+    name: 'Microsoft Azure Administrator',
+    level: 'Intermediate',
+    role: 'Administrator',
+    description: 'Implement, manage, and monitor an organization\'s Microsoft Azure environment including virtual networks, storage, compute, and identity.',
+    gradient: 'linear-gradient(135deg, #4c1d95 0%, #7c3aed 60%, #8b5cf6 100%)',
+    url: 'https://learn.microsoft.com/en-us/credentials/certifications/azure-administrator/',
+  },
+  {
+    code: 'AZ-204',
+    name: 'Azure Developer Associate',
+    level: 'Intermediate',
+    role: 'Developer',
+    description: 'Design, build, test, and maintain cloud applications and services on Microsoft Azure using a variety of Azure services.',
+    gradient: 'linear-gradient(135deg, #1e3a8a 0%, #2563eb 50%, #7c3aed 100%)',
+    url: 'https://learn.microsoft.com/en-us/credentials/certifications/azure-developer/',
+  },
+  {
+    code: 'AZ-500',
+    name: 'Azure Security Engineer Associate',
+    level: 'Intermediate',
+    role: 'Security Engineer',
+    description: 'Implement security controls, maintain security posture, and identify and remediate vulnerabilities in Azure environments.',
+    gradient: 'linear-gradient(135deg, #5b21b6 0%, #7c3aed 50%, #a78bfa 100%)',
+    url: 'https://learn.microsoft.com/en-us/credentials/certifications/azure-security-engineer/',
+  },
+];
+
 export default function WelcomePage() {
   const { token, username, expiresIn, logout } = useAuth();
   const navigate = useNavigate();
@@ -120,6 +177,32 @@ export default function WelcomePage() {
               </div>
             ))}
           </div>
+
+          {/* Microsoft Certifications 2026 */}
+          <section aria-labelledby="certs-heading">
+            <h2 id="certs-heading" style={styles.certsHeading}>Microsoft Certifications 2026</h2>
+            <p style={styles.certsSub}>Highlighted credentials from Microsoft Learn — validate your cloud &amp; AI skills.</p>
+            <div style={styles.certsGrid}>
+              {CERTIFICATIONS.map((cert) => (
+                <a
+                  key={cert.code}
+                  href={cert.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ ...styles.certCard, background: cert.gradient }}
+                  aria-label={`${cert.code}: ${cert.name}`}
+                >
+                  <div style={styles.certHeader}>
+                    <span style={styles.certCode}>{cert.code}</span>
+                    <span style={styles.certBadge}>{cert.level}</span>
+                  </div>
+                  <p style={styles.certName}>{cert.name}</p>
+                  <p style={styles.certDesc}>{cert.description}</p>
+                  <span style={styles.certRole}>{cert.role}</span>
+                </a>
+              ))}
+            </div>
+          </section>
         </main>
       </div>
     </div>
@@ -302,5 +385,78 @@ const styles = {
     fontSize: '15px',
     fontWeight: 500,
     lineHeight: '20px',
+  },
+  certsHeading: {
+    fontFamily: 'Inter, sans-serif',
+    fontSize: '20px',
+    fontWeight: 600,
+    color: '#0F172A',
+    marginBottom: '6px',
+    letterSpacing: '-0.015em',
+  },
+  certsSub: {
+    fontFamily: 'Inter, sans-serif',
+    fontSize: '14px',
+    color: '#64748B',
+    marginBottom: '20px',
+  },
+  certsGrid: {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
+    gap: '16px',
+  },
+  certCard: {
+    display: 'block',
+    borderRadius: '16px',
+    padding: '24px',
+    textDecoration: 'none',
+    color: '#fff',
+    transition: 'transform 160ms ease, box-shadow 160ms ease',
+    boxShadow: '0 4px 24px rgba(0,0,0,0.18)',
+  },
+  certHeader: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginBottom: '12px',
+  },
+  certCode: {
+    fontFamily: 'Inter, sans-serif',
+    fontSize: '13px',
+    fontWeight: 700,
+    letterSpacing: '0.08em',
+    opacity: 0.9,
+  },
+  certBadge: {
+    fontFamily: 'Inter, sans-serif',
+    fontSize: '11px',
+    fontWeight: 500,
+    backgroundColor: 'rgba(255,255,255,0.2)',
+    borderRadius: '999px',
+    padding: '2px 10px',
+    letterSpacing: '0.04em',
+  },
+  certName: {
+    fontFamily: 'Inter, sans-serif',
+    fontSize: '16px',
+    fontWeight: 600,
+    lineHeight: '22px',
+    marginBottom: '8px',
+    color: '#fff',
+  },
+  certDesc: {
+    fontFamily: 'Inter, sans-serif',
+    fontSize: '13px',
+    lineHeight: '19px',
+    color: 'rgba(255,255,255,0.82)',
+    marginBottom: '14px',
+  },
+  certRole: {
+    fontFamily: 'Inter, sans-serif',
+    fontSize: '11px',
+    fontWeight: 500,
+    color: 'rgba(255,255,255,0.65)',
+    textTransform: 'uppercase',
+    letterSpacing: '0.06em',
   },
 };
